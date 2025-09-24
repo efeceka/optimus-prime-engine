@@ -106,31 +106,33 @@ export default function Footer() {
 
           {/* Geniş Google Map */}
           <div className="lg:col-span-1 lg:col-start-4">
-            <h6 className={`${rajdhani.className} text-white/95 font-bold uppercase tracking-[0.08em] text-sm`}>
-              Konum
-            </h6>
-            <div className="mt-4 rounded-xl overflow-hidden ring-1 ring-white/15 bg-white/5 backdrop-blur-sm">
-              <div className="relative w-full" style={{ aspectRatio: "4/3" }}>
-                <iframe
-                  title="Optimus Prime Konum"
-                  width="100%"
-                  height="100%"
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  className="absolute inset-0"
-                  src={`https://www.google.com/maps?q=${mapsQuery}&output=embed`}
-                />
-              </div>
-              <a
-                href={`https://www.google.com/maps/search/?api=1&query=${mapsQuery}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`${rajdhani.className} block text-center text-xs uppercase tracking-[0.06em] text-white/90 hover:text-white py-2 border-t border-white/10`}
-              >
-                Haritada Aç
-              </a>
-            </div>
-          </div>
+  <h6
+    className={`${rajdhani.className} text-white/95 font-bold uppercase tracking-[0.08em] text-sm`}
+  >
+    Konum
+  </h6>
+  <div className="mt-4 rounded-xl overflow-hidden ring-1 ring-white/15 bg-white/5 backdrop-blur-sm">
+    <div className="relative w-full" style={{ aspectRatio: "4/3" }}>
+      <iframe
+        title="Optimus Prime Konum"
+        width="100%"
+        height="100%"
+        loading="lazy"
+        referrerPolicy="no-referrer-when-downgrade"
+        className="absolute inset-0"
+        src="https://www.google.com/maps?q=Istanbul,Turkey&output=embed"
+      />
+    </div>
+    <a
+      href="https://www.google.com/maps/search/?api=1&query=Istanbul,Turkey"
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`${rajdhani.className} block text-center text-xs uppercase tracking-[0.06em] text-white/90 hover:text-white py-2 border-t border-white/10`}
+    >
+      Haritada Aç
+    </a>
+  </div>
+</div>
         </div>
 
         {/* Alt bar */}
