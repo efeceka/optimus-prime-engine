@@ -3,18 +3,20 @@ import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { Orbitron } from "next/font/google";
+import { Rajdhani } from "next/font/google";
 
-export const orbitron = Orbitron({
+const rajdhani = Rajdhani({
   subsets: ["latin"],
-  weight: ["400", "600", "700", "800"],
+  weight: ["400", "500", "600", "700"],
 });
 
 export default function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+
   const panelRef = useRef(null);
+  const toggleBtnRef = useRef(null);
 
   if (pathname?.startsWith("/studio")) return null;
 
@@ -27,16 +29,27 @@ export default function Header() {
 
   useEffect(() => {
     if (!open) return;
+
     const onKey = (e) => e.key === "Escape" && setOpen(false);
     const onClickOutside = (e) => {
-      if (!panelRef.current) return;
-      if (!panelRef.current.contains(e.target)) setOpen(false);
+      const panel = panelRef.current;
+      const toggleBtn = toggleBtnRef.current;
+      if (!panel) return;
+
+      const clickedInside = panel.contains(e.target);
+      const clickedToggle = toggleBtn && toggleBtn.contains(e.target);
+
+      if (!clickedInside && !clickedToggle) {
+        setOpen(false);
+      }
     };
+
     document.addEventListener("keydown", onKey);
-    document.addEventListener("mousedown", onClickOutside);
+    document.addEventListener("click", onClickOutside, true);
+
     return () => {
       document.removeEventListener("keydown", onKey);
-      document.removeEventListener("mousedown", onClickOutside);
+      document.removeEventListener("click", onClickOutside, true);
     };
   }, [open]);
 
@@ -44,13 +57,11 @@ export default function Header() {
     { key: "home", href: "/", label: "Anasayfa" },
     { key: "about", href: "/hakkimizda", label: "Hakkımızda" },
     { key: "products", href: "/urunler", label: "Ürünler" },
-    { key: "gallery", href: "/galeri", label: "Galeri" },
-    { key: "contact", href: "/iletisim", label: "İletisim" },
+    { key: "gallery", href: "/galeri", label: "GALERİ" },
+    { key: "contact", href: "/iletisim", label: "İLETİŞİM" },
   ];
 
-  // Orbitron + uppercase + letter-spacing (config gerektirmez)
-  const linkBase =
-    `${orbitron.className} relative text-sm lg:text-[14px] uppercase tracking-[0.08em] font-semibold transition-colors`;
+  const linkBase = `${rajdhani.className} relative text-sm lg:text-[20px] uppercase tracking-[0.08em] font-semibold transition-colors`;
   const linkIdle = "text-white/80 hover:text-white";
   const linkActive =
     "text-white after:absolute after:-bottom-2 after:left-1/2 after:h-[2px] after:w-6 after:-translate-x-1/2 after:rounded-full after:bg-white/90";
@@ -76,8 +87,6 @@ export default function Header() {
             priority
             className="h-6 w-auto md:h-10 lg:h-16"
           />
-          {/* İstersen metin logo: */}
-          {/* <span className={`${orbitron.className} hidden sm:block text-white text-base md:text-lg uppercase tracking-[0.08em]`}>Optimus&nbsp;Prime</span> */}
         </Link>
 
         {/* Masaüstü menü */}
@@ -96,38 +105,35 @@ export default function Header() {
           })}
         </nav>
 
-        {/* Sağ kontrol alanı */}
+        {/* Sağ alan */}
         <div className="flex items-center gap-2 md:gap-3">
-          {/* Dil butonu (işlevsiz) */}
           <button
-            className={`${orbitron.className} px-3 py-1.5 md:px-4 md:py-2 border border-white/80 text-white rounded-full text-sm md:text-base hover:bg-white hover:text-black transition uppercase tracking-[0.08em]`}
-            aria-label="Dil değiştir"
-            title="Dil değiştir"
+            className={`${rajdhani.className} px-3 py-1.5 md:px-4 md:py-2 border border-white/80 text-white rounded-full text-sm md:text-base font-medium hover:bg-white hover:text-black transition uppercase tracking-[0.08em]`}
           >
             TR
           </button>
 
-          {/* Burger (mobil) */}
+          {/* Burger */}
           <button
+            ref={toggleBtnRef}
             type="button"
-            className="md:hidden grid place-items-center w-10 h-10 rounded-md border border-white/50 text-white/90 hover:text-white hover:border-white transition"
-            aria-label="Menüyü aç/kapat"
+            className="md:hidden grid place-items-center w-10 h-10 rounded-md border border-white/50 text-white/90 hover:text-white hover:border-white transition relative z-[51]"
             onClick={() => setOpen((v) => !v)}
           >
             {open ? (
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                <path d="M6 6l12 12M6 18L18 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                <path d="M6 6l12 12M6 18L18 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
               </svg>
             ) : (
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
               </svg>
             )}
           </button>
         </div>
       </div>
 
-      {/* Mobil menü paneli */}
+      {/* Mobil menü */}
       <div
         ref={panelRef}
         className={[
@@ -143,7 +149,7 @@ export default function Header() {
                 <Link
                   href={item.href}
                   onClick={() => setOpen(false)}
-                  className={`block py-3 ${orbitron.className} uppercase tracking-[0.08em] font-medium ${
+                  className={`block py-3 ${rajdhani.className} uppercase tracking-[0.08em] font-medium ${
                     pathname === item.href ? "text-white" : "text-white/95 hover:text-white"
                   }`}
                 >

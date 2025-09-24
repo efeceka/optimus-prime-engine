@@ -1,12 +1,12 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { Orbitron } from "next/font/google";
+import { Rajdhani } from "next/font/google";
 
-// Google Fonts → bileşen içinde çağır
-const orbitron = Orbitron({
+// Google Fonts → Rajdhani
+const rajdhani = Rajdhani({
   subsets: ["latin"],
-  weight: ["400", "600", "700", "800"],
+  weight: ["400", "500", "600", "700"],
 });
 
 export default function About() {
@@ -30,7 +30,7 @@ export default function About() {
             {/* köşe rozeti */}
             <div className="absolute top-4 left-4">
               <span
-                className={`${orbitron.className} inline-flex items-center gap-2 rounded-full bg-white/80 backdrop-blur px-3 py-1.5 text-[12px] font-semibold text-[#0B1F3A] uppercase tracking-[0.08em]`}
+                className={`${rajdhani.className} inline-flex items-center gap-2 rounded-full bg-white/80 backdrop-blur px-3 py-1.5 text-[12px] font-semibold text-[#0B1F3A] uppercase tracking-[0.08em]`}
               >
                 <span className="h-2 w-2 rounded-full bg-[#2BA84A]" />
                 Premium Engine Parts
@@ -46,12 +46,12 @@ export default function About() {
             <span className="mt-1 inline-block h-9 w-1.5 rounded-full bg-[#2BA84A]" />
             <div>
               <h2
-                className={`${orbitron.className} text-3xl lg:text-4xl font-semibold text-[#0B1F3A] uppercase tracking-[0.06em]`}
+                className={`${rajdhani.className} text-3xl lg:text-5xl font-bold text-[#0B1F3A] uppercase tracking-[0.06em]`}
               >
                 Hakkımızda
               </h2>
               <p
-                className={`${orbitron.className} mt-1 text-sm font-semibold text-[#2BA84A] uppercase tracking-[0.16em]`}
+                className={`${rajdhani.className} mt-1 text-sm font-semibold text-[#2BA84A] uppercase tracking-[0.16em]`}
               >
                 GÜVENİLİR TEDARİK · HIZLI ÇÖZÜM
               </p>
@@ -78,7 +78,7 @@ export default function About() {
             <div className="inline-flex w-full sm:w-auto items-center gap-3 rounded-2xl backdrop-blur py-3">
               <Link
                 href="/hakkimizda"
-                className={`${orbitron.className} inline-flex items-center gap-2 rounded-lg bg-[#0B1F3A] px-4 py-2 text-white font-semibold hover:opacity-90 transition uppercase tracking-[0.06em]`}
+                className={`${rajdhani.className} inline-flex items-center gap-2 rounded-lg bg-[#0B1F3A] px-4 py-2 text-white font-semibold hover:opacity-90 transition uppercase tracking-[0.06em]`}
               >
                 Daha Fazlası
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
@@ -93,9 +93,9 @@ export default function About() {
               </Link>
               <Link
                 href="/iletisim"
-                className={`${orbitron.className} inline-flex items-center gap-2 rounded-lg border border-[#0B1F3A]/30 bg-white px-4 py-2 text-[#0B1F3A] font-semibold hover:bg-[#0B1F3A]/5 transition uppercase tracking-[0.06em]`}
+                className={`${rajdhani.className} inline-flex items-center gap-2 rounded-lg border border-[#0B1F3A]/30 bg-white px-4 py-2 text-[#0B1F3A] font-semibold hover:bg-[#0B1F3A]/5 transition uppercase tracking-[0.06em]`}
               >
-                Teklif Al
+                TEKLİF AL
               </Link>
             </div>
           </div>

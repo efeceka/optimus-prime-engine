@@ -1,12 +1,12 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import { Orbitron } from "next/font/google";
+import { Rajdhani } from "next/font/google";
 
-const orbitron = Orbitron({
-    subsets: ["latin"],
-    weight: ["400", "600", "700", "800"],
-  });
+const rajdhani = Rajdhani({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+});
 
 const HERO_IMG = "/images/home/hero.jpg";
 
@@ -26,7 +26,6 @@ export default function Hero() {
         className="object-cover"
       />
 
-      
       {/* Alt mask */}
       <div
         className="absolute bottom-0 left-0 right-0 h-16 md:h-20 bg-black/0"
@@ -42,7 +41,9 @@ export default function Hero() {
           <div className="h-full w-full grid content-center">
             {/* Chip */}
             <div className="absolute top-6 left-6 hidden sm:flex">
-              <span className={`${orbitron.className} inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-[12px] tracking-[0.08em] text-white/90 backdrop-blur border border-white/20 uppercase`}>
+              <span
+                className={`${rajdhani.className} inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-[12px] tracking-[0.08em] text-white/90 backdrop-blur border border-white/20 uppercase font-semibold`}
+              >
                 <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
                 Premium Engine Parts
               </span>
@@ -51,7 +52,7 @@ export default function Hero() {
             {/* Başlık + açıklama */}
             <div className="text-center md:text-left max-w-3xl md:max-w-2xl">
               <h1
-                className={`${orbitron.className} text-white font-semibold uppercase tracking-[0.06em] text-3xl md:text-5xl lg:text-5xl leading-snug`}
+                className={`${rajdhani.className} text-white font-bold uppercase tracking-[0.06em] text-3xl md:text-5xl lg:text-6xl leading-snug`}
                 style={{
                   textShadow:
                     "0 0 4px rgba(0,0,0,1), 0 2px 10px rgba(0,0,0,.9), 0 6px 18px rgba(0,0,0,.85)",
@@ -76,7 +77,7 @@ export default function Hero() {
               <div className="inline-flex items-center gap-3 rounded-2xl border border-white/20 bg-white/10 backdrop-blur px-3 py-3 md:px-4 md:py-4">
                 <Link
                   href="/urunler"
-                  className={`${orbitron.className} inline-flex items-center gap-3 rounded-lg border border-white/0 bg-white px-4 py-2 text-black text-sm md:text-base font-semibold hover:opacity-90 transition uppercase tracking-[0.06em]`}
+                  className={`${rajdhani.className} inline-flex items-center gap-3 rounded-lg border border-white/0 bg-white px-4 py-2 text-black text-sm md:text-base font-semibold hover:opacity-90 transition uppercase tracking-[0.06em]`}
                 >
                   Ürünleri İncele
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
@@ -86,9 +87,9 @@ export default function Hero() {
 
                 <Link
                   href="/iletisim"
-                  className={`${orbitron.className} inline-flex items-center gap-2 rounded-lg border border-white/40 bg-transparent px-4 py-2 text-white text-sm md:text-base font-semibold hover:bg-white/15 transition uppercase tracking-[0.06em]`}
+                  className={`${rajdhani.className} inline-flex items-center gap-2 rounded-lg border border-white/40 bg-transparent px-4 py-2 text-white text-sm md:text-base font-semibold hover:bg-white/15 transition uppercase tracking-[0.06em]`}
                 >
-                  İletisim
+                  İLETİŞİM
                 </Link>
               </div>
             </div>
@@ -97,7 +98,7 @@ export default function Hero() {
 
         {/* alt destek metni */}
         <div className="absolute bottom-5 left-1/2 -translate-x-1/2 text-center">
-          <p className={`${orbitron.className} text-[12px] md:text-sm text-white/80 uppercase tracking-[0.08em]`}>
+          <p className={`${rajdhani.className} text-[12px] md:text-sm text-white/80 uppercase tracking-[0.08em]`}>
             Güvenilir Jeneratör Çözümleri
           </p>
         </div>
