@@ -24,7 +24,7 @@ export default function UrunlerHero() {
       <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/50" />
 
       <div className="relative z-10 max-w-[1440px] mx-auto px-6 lg:px-10 
-                      pt-35 sm:pt-36 md:pt-32  text-center text-white">
+                      pt-35 sm:pt-36 md:pt-32   text-center text-white">
         <h1
           className={`${rajdhani.className} 
             text-4xl sm:text-5xl lg:text-6xl 
