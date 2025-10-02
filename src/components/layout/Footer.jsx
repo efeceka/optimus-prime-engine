@@ -2,6 +2,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Rajdhani } from "next/font/google";
+import { useI18n } from "@/i18n/I18nProvider";
 
 const rajdhani = Rajdhani({
   subsets: ["latin"],
@@ -10,12 +11,69 @@ const rajdhani = Rajdhani({
 
 export default function Footer() {
   const year = new Date().getFullYear();
+  const ctx = (typeof useI18n === "function" ? useI18n() : null) || { lang: "tr" };
+  const LANG = (ctx.lang || "tr").toLowerCase();
+
+  const t = {
+    tr: {
+      slogan:
+        "Ağır hizmet dizel motorlar ve yedek parçalarında güvenilir tedarik. Hızlı lojistik, yüksek uyumluluk, şeffaf fiyat.",
+      chip: "Premium Enerji Çözümleri",
+      menus: "Menüler",
+      home: "Anasayfa",
+      about: "Hakkımızda",
+      products: "Ürünler",
+      gallery: "Galeri",
+      contact: "İletişim",
+      addressLabel: "Adres",
+      address: "İstanbul, Türkiye",
+      phoneLabel: "Telefon",
+      phone: "+90 212 222 11 22",
+      mailLabel: "E-posta",
+      mail: "info@optimusprime.com",
+      work: "Çalışma: Hafta içi 09:00 – 18:00",
+      location: "Konum",
+      openMap: "Haritada Aç",
+      rights: "Tüm hakları saklıdır.",
+      tagline: "Endüstriyel güç çözümleri · Güvenilir tedarik",
+      mapsQuery: "Istanbul,Turkey",
+      mapsTitle: "Optimus Prime Konum",
+    },
+    en: {
+      slogan:
+        "Reliable supply for heavy-duty diesel engines and spare parts. Fast logistics, high compatibility, transparent pricing.",
+      chip: "Premium Energy Solutions",
+      menus: "Menus",
+      home: "Home",
+      about: "About",
+      products: "Products",
+      gallery: "Gallery",
+      contact: "Contact",
+      addressLabel: "Address",
+      address: "Istanbul, Türkiye",
+      phoneLabel: "Phone",
+      phone: "+90 212 222 11 22",
+      mailLabel: "E-mail",
+      mail: "info@optimusprime.com",
+      work: "Hours: Weekdays 09:00 – 18:00",
+      location: "Location",
+      openMap: "Open in Maps",
+      rights: "All rights reserved.",
+      tagline: "Industrial power solutions · Reliable supply",
+      mapsQuery: "Istanbul,Turkey",
+      mapsTitle: "Optimus Prime Location",
+    },
+  }[LANG];
 
   const bandClip = "polygon(6% 0, 100% 0, 94% 100%, 0 100%)";
   const chipClip = "polygon(10% 0, 100% 0, 90% 100%, 0 100%)";
 
-  // Google Maps adres
-  const mapsQuery = encodeURIComponent("Optimus Prime, İstanbul, Türkiye");
+  const mapsSrc = `https://www.google.com/maps?q=${encodeURIComponent(
+    t.mapsQuery
+  )}&output=embed`;
+  const mapsLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+    t.mapsQuery
+  )}`;
 
   return (
     <footer className="relative w-full bg-[#0A0F1A] text-white">
@@ -66,83 +124,97 @@ export default function Footer() {
             </Link>
 
             <p className="text-white/80 text-sm leading-relaxed max-w-sm">
-              Ağır hizmet dizel motorlar ve yedek parçalarında güvenilir tedarik.
-              Hızlı lojistik, yüksek uyumluluk, şeffaf fiyat.
+              {t.slogan}
             </p>
 
             <div
-              className={`${rajdhani.className} inline-flex items-center text-[12px] uppercase tracking-[0.08em] font-semibold text-[#0CE17C]`}
-              style={{ clipPath: chipClip, background: "rgba(12,225,124,0.10)", border: "1px solid rgba(12,225,124,0.25)" }}
+              className={`${rajdhani.className} inline-flex items-center text-[12px] font-semibold text-[#0CE17C]`}
+              style={{
+                clipPath: chipClip,
+                background: "rgba(12,225,124,0.10)",
+                border: "1px solid rgba(12,225,124,0.25)",
+              }}
             >
-              <span className="px-3 py-1">Premium Enerji Çözümleri</span>
+              <span className="px-3 py-1">{t.chip}</span>
             </div>
 
             {/* İletişim */}
             <ul className="mt-4 space-y-2 text-sm">
-              <li className="text-white/85">Adres: İstanbul, Türkiye</li>
               <li className="text-white/85">
-                Telefon: <a href="tel:+902122221122" className="hover:underline">+90 212 222 11 22</a>
+                {t.addressLabel}: {t.address}
               </li>
               <li className="text-white/85">
-                E-posta: <a href="mailto:info@optimusprime.com" className="hover:underline">info@optimusprime.com</a>
+                {t.phoneLabel}:{" "}
+                <a href="tel:+902122221122" className="hover:underline">
+                  {t.phone}
+                </a>
               </li>
-              <li className="text-white/70">Çalışma: Hafta içi 09:00 – 18:00</li>
+              <li className="text-white/85">
+                {t.mailLabel}:{" "}
+                <a href="mailto:info@optimusprime.com" className="hover:underline">
+                  {t.mail}
+                </a>
+              </li>
+              <li className="text-white/70">{t.work}</li>
             </ul>
           </div>
 
           {/* Hızlı Menü */}
           <div>
-            <h6 className={`${rajdhani.className} text-white/95 font-bold uppercase tracking-[0.08em] text-sm`}>
-              Menüler
+            <h6
+              className={`${rajdhani.className} text-white/95 font-bold tracking-[0.08em] text-sm`}
+              style={{ textTransform: "uppercase" }}
+            >
+              {t.menus}
             </h6>
             <div className="mt-4 grid gap-2 text-sm">
-              <FooterLink href="/">Anasayfa</FooterLink>
-              <FooterLink href="/hakkimizda">Hakkımızda</FooterLink>
-              <FooterLink href="/urunler">Ürünler</FooterLink>
-              <FooterLink href="/galeri">Galeri</FooterLink>
-              <FooterLink href="/iletisim">İletişim</FooterLink>
+              <FooterLink href="/">{t.home}</FooterLink>
+              <FooterLink href="/hakkimizda">{t.about}</FooterLink>
+              <FooterLink href="/urunler">{t.products}</FooterLink>
+              <FooterLink href="/galeri">{t.gallery}</FooterLink>
+              <FooterLink href="/iletisim">{t.contact}</FooterLink>
             </div>
           </div>
 
           {/* Geniş Google Map */}
           <div className="lg:col-span-1 lg:col-start-4">
-  <h6
-    className={`${rajdhani.className} text-white/95 font-bold uppercase tracking-[0.08em] text-sm`}
-  >
-    Konum
-  </h6>
-  <div className="mt-4 rounded-xl overflow-hidden ring-1 ring-white/15 bg-white/5 backdrop-blur-sm">
-    <div className="relative w-full" style={{ aspectRatio: "4/3" }}>
-      <iframe
-        title="Optimus Prime Konum"
-        width="100%"
-        height="100%"
-        loading="lazy"
-        referrerPolicy="no-referrer-when-downgrade"
-        className="absolute inset-0"
-        src="https://www.google.com/maps?q=Istanbul,Turkey&output=embed"
-      />
-    </div>
-    <a
-      href="https://www.google.com/maps/search/?api=1&query=Istanbul,Turkey"
-      target="_blank"
-      rel="noopener noreferrer"
-      className={`${rajdhani.className} block text-center text-xs uppercase tracking-[0.06em] text-white/90 hover:text-white py-2 border-t border-white/10`}
-    >
-      Haritada Aç
-    </a>
-  </div>
-</div>
+            <h6
+              className={`${rajdhani.className} text-white/95 font-bold tracking-[0.08em] text-sm`}
+              style={{ textTransform: "uppercase" }}
+            >
+              {t.location}
+            </h6>
+            <div className="mt-4 rounded-xl overflow-hidden ring-1 ring-white/15 bg-white/5 backdrop-blur-sm">
+              <div className="relative w-full" style={{ aspectRatio: "4/3" }}>
+                <iframe
+                  title={t.mapsTitle}
+                  width="100%"
+                  height="100%"
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  className="absolute inset-0"
+                  src={mapsSrc}
+                />
+              </div>
+              <a
+                href={mapsLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`${rajdhani.className} block text-center text-xs tracking-[0.06em] text-white/90 hover:text-white py-2 border-t border-white/10`}
+                style={{ textTransform: "uppercase" }}
+              >
+                {t.openMap}
+              </a>
+            </div>
+          </div>
         </div>
 
         {/* Alt bar */}
         <div className="mt-10 pt-6 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-3">
           <p className="text-xs text-white/70">
-            © {year} Optimus Prime — Tüm hakları saklıdır.
+            © {year} Optimus Prime — {t.rights}
           </p>
-          <p className="text-xs text-white/50">
-            Endüstriyel güç çözümleri · Güvenilir tedarik
-          </p>
+          <p className="text-xs text-white/50">{t.tagline}</p>
         </div>
       </div>
     </footer>

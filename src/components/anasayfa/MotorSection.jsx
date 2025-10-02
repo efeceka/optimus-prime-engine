@@ -2,6 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Rajdhani } from "next/font/google";
+import { useI18n } from "@/i18n/I18nProvider";
 
 const rajdhani = Rajdhani({
   subsets: ["latin"],
@@ -14,34 +15,86 @@ const IMAGES = [
   "/images/home/motors/motor3.png",
 ];
 
-export default function MotorSec() {
-  const cards = [
-    {
-      size: "10 - 39 kW",
-      img: IMAGES[0],
-      title: "Küçük Ölçek Motorlar",
-      desc:
-        "Küçük ve orta ölçekli uygulamalar için ideal olan 10 ila 39 kW jeneratör motorlarımız, güvenilirlik, düşük yakıt tüketimi ve yüksek verimlilik sunar.",
-    },
-    {
-      size: "43 - 110 kW",
-      img: IMAGES[1],
-      title: "Orta Ölçek Motorlar",
-      desc:
-        "Orta ölçekli endüstriyel ve ticari kullanım için tasarlanmış 43 ila 110 kW jeneratör motorları; yüksek performans ve dayanıklılığı bir araya getirir.",
-    },
-    {
-      size: "120 - 390 kW",
-      img: IMAGES[2],
-      title: "Büyük Ölçek Motorlar",
-      desc:
-        "Büyük ölçekli sanayi tesisleri ve projeler için ideal; güçlü performans ve uzun ömür sunar.",
-    },
-  ];
+// TR için I/İ dönüşümünü koruyarak uppercase
+function preserveTRUpper(str, lang) {
+  if (!str) return "";
+  const isTR = (lang || "tr").toLowerCase() === "tr";
+  if (!isTR) return str.toUpperCase();
+  return str.replace(/i/g, "İ").replace(/ı/g, "I").toUpperCase();
+}
 
-  // Simetrik chamfer
+export default function MotorSec() {
+  // i18n — provider yoksa çökmesin
+  const ctx = (typeof useI18n === "function" ? useI18n() : null) || { lang: "tr" };
+  const L = (ctx.lang || "tr").toLowerCase();
+
+  const dict = {
+    tr: {
+      heading: "Motorlarımız",
+      sub: "İhtiyaçlarınıza göre üç sınıfta motor çözümleri.",
+      cards: [
+        {
+          size: "10 - 39 kW",
+          img: IMAGES[0],
+          title: "Küçük Ölçek Motorlar",
+          desc:
+            "Küçük ve orta ölçekli uygulamalar için ideal olan 10 ila 39 kW jeneratör motorlarımız, güvenilirlik, düşük yakıt tüketimi ve yüksek verimlilik sunar.",
+        },
+        {
+          size: "43 - 110 kW",
+          img: IMAGES[1],
+          title: "Orta Ölçek Motorlar",
+          desc:
+            "Orta ölçekli endüstriyel ve ticari kullanım için tasarlanmış 43 ila 110 kW jeneratör motorları; yüksek performans ve dayanıklılığı bir araya getirir.",
+        },
+        {
+          size: "120 - 390 kW",
+          img: IMAGES[2],
+          title: "Büyük Ölçek Motorlar",
+          desc:
+            "Büyük ölçekli sanayi tesisleri ve projeler için ideal; güçlü performans ve uzun ömür sunar.",
+        },
+      ],
+      cta: "Keşfet",
+      foot: "Seçenekler ve stok durumu için bizimle iletişime geçin.",
+    },
+    en: {
+      heading: "Our Engines",
+      sub: "Three ranges tailored to your needs.",
+      cards: [
+        {
+          size: "10 - 39 kW",
+          img: IMAGES[0],
+          title: "Small Scale Engines",
+          desc:
+            "Ideal for small and medium applications, our 10–39 kW generator engines offer reliability, low fuel consumption and high efficiency.",
+        },
+        {
+          size: "43 - 110 kW",
+          img: IMAGES[1],
+          title: "Medium Scale Engines",
+          desc:
+            "Designed for mid-scale industrial and commercial use, 43–110 kW generator engines combine high performance with durability.",
+        },
+        {
+          size: "120 - 390 kW",
+          img: IMAGES[2],
+          title: "Large Scale Engines",
+          desc:
+            "Perfect for large industrial plants and projects; delivers strong performance and long service life.",
+        },
+      ],
+      cta: "Explore",
+      foot: "Contact us for options and availability.",
+    },
+  }[L];
+
+  // simetrik chamfer
   const polyClip = "polygon(3% 0, 100% 0, 100% 97%, 97% 100%, 0 100%, 0 3%)";
   const chipClip = "polygon(8% 0%, 100% 0%, 100% 75%, 92% 100%, 0% 100%, 0% 25%)";
+
+  // başlığı TR’de doğru büyüt
+  const headingUP = preserveTRUpper(dict.heading, L);
 
   return (
     <section className="relative w-full bg-[#0A0F1A]">
@@ -69,19 +122,20 @@ export default function MotorSec() {
         {/* Başlık */}
         <div className="text-center mb-10 lg:mb-14">
           <h2
-            className={`${rajdhani.className} text-3xl lg:text-4xl font-bold uppercase tracking-[0.08em] text-white`}
+            className={`${rajdhani.className} text-3xl lg:text-4xl font-bold tracking-[0.08em] text-white`}
+            style={{ textTransform: "none" }}
           >
-            Motorlarımız
+            {headingUP}
           </h2>
           <div className="mx-auto mt-3 h-[3px] w-24 bg-gradient-to-r from-[#2BA84A] via-white/60 to-[#00138B] rounded-full" />
           <p className="mt-4 text-gray-300 text-sm md:text-base max-w-2xl mx-auto">
-            İhtiyaçlarınıza göre üç sınıfta motor çözümleri.
+            {dict.sub}
           </p>
         </div>
 
         {/* Kartlar */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10 items-stretch">
-          {cards.map((it, i) => (
+          {dict.cards.map((it, i) => (
             <article
               key={i}
               className="group relative rounded-2xl h-full flex flex-col overflow-hidden shadow-[0_8px_24px_rgba(0,0,0,0.35)] ring-1 ring-white/5 bg-white/5 backdrop-blur-sm"
@@ -109,7 +163,7 @@ export default function MotorSec() {
                 {/* Rozet */}
                 <div className="absolute top-5 left-5">
                   <span
-                    className={`${rajdhani.className} inline-flex items-center gap-2 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.08em] text-white`}
+                    className={`${rajdhani.className} inline-flex items-center gap-2 px-3 py-1 text-[11px] font-semibold tracking-[0.08em] text-white uppercase`}
                     style={{ background: "#00138Bcc", clipPath: chipClip }}
                   >
                     <span
@@ -148,7 +202,7 @@ export default function MotorSec() {
                         background: "linear-gradient(90deg, #ffffff, #A7F3D0)",
                       }}
                     />
-                    <span className="relative">Keşfet</span>
+                    <span className="relative">{dict.cta}</span>
                     <span
                       aria-hidden
                       className="relative h-2 w-3"
@@ -168,9 +222,7 @@ export default function MotorSec() {
         </div>
 
         {/* alt bilgi */}
-        <div className="mt-10 text-center text-xs text-gray-400">
-          Seçenekler ve stok durumu için bizimle iletişime geçin.
-        </div>
+        <div className="mt-10 text-center text-xs text-gray-400">{dict.foot}</div>
       </div>
     </section>
   );

@@ -1,19 +1,33 @@
 "use client";
 import { Rajdhani } from "next/font/google";
+import { useI18n } from "@/i18n/I18nProvider";
 
 const rajdhani = Rajdhani({
   subsets: ["latin"],
   weight: ["600", "700"],
 });
 
-const stats = [
-  { value: "2018", label: "Kuruluş" },
-  { value: "15+", label: "Ürün ÇEŞİDİ" },
-  { value: "100+", label: "MÜŞTERİLERİMİZ" },
-  { value: "5+", label: "Ülke" },
-];
-
 export default function Stats() {
+  const ctx = (typeof useI18n === "function" ? useI18n() : null) || { lang: "tr" };
+  const L = (ctx.lang || "tr").toLowerCase();
+
+  const dict = {
+    tr: [
+      { value: "2018", label: "Kuruluş" },
+      { value: "15+", label: "Ürün Çeşidi" },
+      { value: "100+", label: "Müşterilerimiz" },
+      { value: "5+", label: "Ülke" },
+    ],
+    en: [
+      { value: "2018", label: "Founded" },
+      { value: "15+", label: "Product Types" },
+      { value: "100+", label: "Clients" },
+      { value: "5+", label: "Countries" },
+    ],
+  };
+
+  const stats = dict[L];
+
   return (
     <section className="relative w-full bg-[#0A0F1A] text-white">
       {/* Low-poly arka plan */}
@@ -37,7 +51,7 @@ export default function Stats() {
               >
                 {item.value}
               </span>
-              <span className="mt-2 text-sm md:text-base text-white/80 uppercase tracking-[0.08em]">
+              <span className="mt-2 text-sm md:text-base text-white/80 tracking-[0.08em] uppercase">
                 {item.label}
               </span>
             </div>

@@ -1,13 +1,15 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import Image from "next/image";
 import { Rajdhani } from "next/font/google";
+import { useI18n } from "@/i18n/I18nProvider";
 
 const rajdhani = Rajdhani({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
 });
 
+// Veri
 const DATA = [
   { img: "/images/home/insaat.webp",  title: { tr: "Şantiyeler ve İnşaat Alanları", en: "Construction Sites" } },
   { img: "/images/home/fabrika.webp", title: { tr: "Sanayi ve Fabrikalar",        en: "Industry & Factories" } },
@@ -19,17 +21,26 @@ const DATA = [
   { img: "/images/home/tarim.webp",   title: { tr: "Tarım ve Hayvancılık",         en: "Agriculture and Livestock" } },
 ];
 
-export default function UseAreas({ lang = "tr" }) {
-  const T = {
-    tr: { heading: "Kullanım Alanları", prev: "Önceki", next: "Sonraki" },
-    en: { heading: "Use Cases",         prev: "Previous", next: "Next"   },
-  }[lang || "tr"];
+export default function UseAreas() {
+  const ctx = (typeof useI18n === "function" ? useI18n() : null) || { lang: "tr" };
+  const lang = (ctx.lang || "tr").toLowerCase(); // "tr" | "en"
+
+  const T = useMemo(
+    () =>
+      ({
+        tr: { heading: "Kullanım Alanları", prev: "Önceki", next: "Sonraki" },
+        en: { heading: "Use Cases",         prev: "Previous", next: "Next"   },
+      }[lang]),
+    [lang]
+  );
 
   const [start, setStart] = useState(0);
   const [visible, setVisible] = useState(3);
 
+  // Breakpoint hesaplama (client)
   useEffect(() => {
     const update = () => {
+      if (typeof window === "undefined") return;
       if (window.matchMedia("(max-width: 639px)").matches) setVisible(1);
       else if (window.matchMedia("(max-width: 1023px)").matches) setVisible(2);
       else setVisible(3);
@@ -39,18 +50,19 @@ export default function UseAreas({ lang = "tr" }) {
     return () => window.removeEventListener("resize", update);
   }, []);
 
+  // Otomatik kaydırma
   const maxStart = Math.max(DATA.length - visible, 0);
-  const next = () => setStart((s) => (s >= maxStart ? 0 : s + 1));
-  const prev = () => setStart((s) => (s <= 0 ? maxStart : s - 1));
+  const goNext = () => setStart((s) => (s >= maxStart ? 0 : s + 1));
+  const goPrev = () => setStart((s) => (s <= 0 ? maxStart : s - 1));
 
   useEffect(() => {
-    const id = setInterval(next, 5000);
+    const id = setInterval(goNext, 5000);
     return () => clearInterval(id);
   }, [maxStart, visible]);
 
-  const t = (obj) => (obj?.[lang] ?? obj?.tr ?? obj?.en ?? "");
+  const t = (obj) => obj?.[lang] ?? obj?.tr ?? obj?.en ?? "";
 
-  // polygon clip’ler
+  // clipPath’ler
   const cardClip = "polygon(3% 0, 100% 0, 100% 97%, 97% 100%, 0 100%, 0 3%)";
   const btnClip  = "polygon(18% 0, 100% 0, 82% 100%, 0 100%)";
 
@@ -83,7 +95,7 @@ export default function UseAreas({ lang = "tr" }) {
 
         {/* Masaüstü oklar */}
         <button
-          onClick={prev}
+          onClick={goPrev}
           aria-label={T.prev}
           className="hidden sm:grid absolute left-2 lg:left-6 top-1/2 -translate-y-2/3 place-items-center w-11 h-11 text-white/90 hover:text-white transition z-10"
           style={{ clipPath: btnClip, background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.2)" }}
@@ -93,7 +105,7 @@ export default function UseAreas({ lang = "tr" }) {
           </svg>
         </button>
         <button
-          onClick={next}
+          onClick={goNext}
           aria-label={T.next}
           className="hidden sm:grid absolute right-2 lg:right-6 top-1/2 -translate-y-2/3 place-items-center w-11 h-11 text-white/90 hover:text-white transition z-10"
           style={{ clipPath: btnClip, background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.2)" }}
@@ -115,12 +127,10 @@ export default function UseAreas({ lang = "tr" }) {
                 className="flex-shrink-0 px-2"
                 style={{ flexBasis: `${100 / visible}%`, maxWidth: `${100 / visible}%` }}
               >
-                {/* TEK PARÇA: Görsel + alt kesik bar aynı clipPath içinde */}
                 <div
                   className="relative overflow-hidden shadow-[0_10px_28px_rgba(0,0,0,.35)] ring-1 ring-white/10 bg-white/5 backdrop-blur-sm"
                   style={{ borderRadius: 14, clipPath: cardClip }}
                 >
-                  {/* İç ped → görseli “biraz küçültür” */}
                   <div className="relative w-full bg-black/10 p-2 md:p-3">
                     <div className="relative w-full" style={{ aspectRatio: "16/10" }}>
                       <Image
@@ -133,7 +143,7 @@ export default function UseAreas({ lang = "tr" }) {
                         priority={i === 0}
                       />
 
-                      {/* Alt şerit/başlık: aynı container içinde, clip paylaşımı var */}
+                      {/* Alt şerit/başlık */}
                       <div
                         className={`${rajdhani.className} absolute left-2 right-2 bottom-2 text-center text-white uppercase tracking-[0.08em] text-[12px] md:text-[13px] font-semibold py-2`}
                         style={{
@@ -147,7 +157,6 @@ export default function UseAreas({ lang = "tr" }) {
                     </div>
                   </div>
 
-                  {/* hover parıltı */}
                   <div className="pointer-events-none absolute inset-x-6 bottom-3 h-10 rounded-full blur-2xl bg-gradient-to-r from-[#2BA84A33] via-white/20 to-[#00138B33] opacity-0 hover:opacity-100 transition-opacity duration-500" />
                 </div>
               </article>
@@ -158,7 +167,7 @@ export default function UseAreas({ lang = "tr" }) {
         {/* Mobil oklar */}
         <div className="mt-6 flex sm:hidden justify-center gap-4">
           <button
-            onClick={prev}
+            onClick={goPrev}
             aria-label={T.prev}
             className="grid place-items-center w-10 h-10 text-white/90"
             style={{ clipPath: btnClip, background: "rgba(255,255,255,0.10)", border: "1px solid rgba(255,255,255,0.25)" }}
@@ -168,7 +177,7 @@ export default function UseAreas({ lang = "tr" }) {
             </svg>
           </button>
           <button
-            onClick={next}
+            onClick={goNext}
             aria-label={T.next}
             className="grid place-items-center w-10 h-10 text-white/90"
             style={{ clipPath: btnClip, background: "rgba(255,255,255,0.10)", border: "1px solid rgba(255,255,255,0.25)" }}

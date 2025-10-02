@@ -5,26 +5,26 @@ import { useI18n } from "@/i18n/I18nProvider";
 
 const rajdhani = Rajdhani({ subsets: ["latin"], weight: ["600", "700"] });
 
-export default function UrunlerHero() {
+export default function IletisimHero() {
   const ctx = (typeof useI18n === "function" ? useI18n() : null) || { lang: "tr" };
   const lang = (ctx.lang || "tr").toLowerCase();
 
   const T = {
     tr: {
-      title: "ÜRÜNLER",
-      desc: "Optimus Prime motor çözümleri: yüksek performanslı dizel motorlar, jeneratörler ve güç sistemleri. Dayanıklı, verimli ve global standartlarda üretim.",
+      title: "İLETİŞİM",
+      desc: "Projeniz için doğru güç çözümünü birlikte planlayalım. Aşağıdaki kanallardan bize ulaşın.",
     },
     en: {
-      title: "PRODUCTS",
-      desc: "Optimus Prime engine solutions: high-performance diesel engines, generators, and power systems. Durable, efficient, and manufactured to global standards.",
+      title: "CONTACT",
+      desc: "Let's plan the right power solution for your project together. Reach us through the channels below.",
     },
   }[lang];
 
   return (
     <section className="relative w-full h-[60vh] min-h-[480px] overflow-hidden">
       <Image
-        src="/images/home/urunlerhero.webp"
-        alt="Optimus Prime Ürünler"
+        src="/images/iletisim.webp"
+        alt="Optimus Prime İletişim"
         fill
         priority
         className="object-cover"
