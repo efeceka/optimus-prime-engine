@@ -19,12 +19,12 @@ export default function GalleryPage() {
 
   const IMAGES = useMemo(
     () => [
-      { src: "/images/home/about.jpg", w: 1600, h: 1066, title: { tr: "Üretim Hattı", en: "Production Line" } },
-      { src: "/images/home/about.jpg", w: 1600, h: 1066, title: { tr: "Motor", en: "Engine" } },
-      { src: "/images/home/about.jpg", w: 1600, h: 1066, title: { tr: "Motor", en: "Engine" } },
-      { src: "/images/home/about.jpg", w: 1600, h: 1066, title: { tr: "Motor", en: "Engine" } },
-      { src: "/images/home/about.jpg", w: 1600, h: 1066, title: { tr: "Motor", en: "Engine" } },
-      { src: "/images/home/about.jpg", w: 1600, h: 1066, title: { tr: "Motor", en: "Engine" } },
+      { src: "/images/home/about.webp", w: 1600, h: 1066, title: { tr: "Motor", en: "Engine" } },
+      { src: "/images/home/about.webp", w: 1600, h: 1066, title: { tr: "Motor", en: "Engine" } },
+      { src: "/images/home/about.webp", w: 1600, h: 1066, title: { tr: "Motor", en: "Engine" } },
+      { src: "/images/home/about.webp", w: 1600, h: 1066, title: { tr: "Motor", en: "Engine" } },
+      { src: "/images/home/about.webp", w: 1600, h: 1066, title: { tr: "Motor", en: "Engine" } },
+      { src: "/images/home/about.webp", w: 1600, h: 1066, title: { tr: "Motor", en: "Engine" } },
     ],
     []
   );

@@ -16,7 +16,6 @@ export default function IletisimForm() {
         subject: "Konu",
         subjectPH: "Teklif, teknik destek, iş birliği…",
         message: "Mesaj *",
-        error: "Lütfen gerekli alanları doldurup KVKK onayını işaretleyin.",
         ok: "E-posta istemcisi açılıyor…",
         send: "Gönder",
         boxTitle1: "Satış & Servis",
@@ -56,7 +55,6 @@ export default function IletisimForm() {
       subject: "Konu",
       subjectPH: "Teklif, teknik destek, iş birliği…",
       message: "Mesaj *",
-      error: "Lütfen gerekli alanları doldurup KVKK onayını işaretleyin.",
       ok: "E-posta istemcisi açılıyor…",
       send: "Gönder",
       boxTitle1: "Satış & Servis",
@@ -74,7 +72,6 @@ export default function IletisimForm() {
     eposta: "",
     konu: "",
     mesaj: "",
-    kvkk: false,
   });
   const [status, setStatus] = useState({ type: "", msg: "" });
 
@@ -87,7 +84,7 @@ export default function IletisimForm() {
     e.preventDefault();
     setStatus({ type: "", msg: "" });
 
-    if (!state.ad || !state.eposta || !state.mesaj || !state.kvkk) {
+    if (!state.ad || !state.eposta || !state.mesaj) {
       setStatus({ type: "error", msg: t.error });
       return;
     }
@@ -159,20 +156,6 @@ export default function IletisimForm() {
                   required
                 />
               </div>
-
-              {/* KVKK / Privacy checkbox (gerekliyse görünür yapın) */}
-              <label className="flex items-center gap-2 text-sm text-gray-600">
-                <input
-                  type="checkbox"
-                  name="kvkk"
-                  checked={state.kvkk}
-                  onChange={onChange}
-                  className="h-4 w-4 accent-[#00138B]"
-                />
-                {isTR
-                  ? "KVKK metnini okudum, onaylıyorum."
-                  : "I have read and accept the privacy policy."}
-              </label>
 
               {status.msg && (
                 <div

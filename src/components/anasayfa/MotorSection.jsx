@@ -10,8 +10,8 @@ const rajdhani = Rajdhani({
 });
 
 const IMAGES = [
-  "/images/home/motors/motor1.jpg",
-  "/images/home/motors/motor2.jpg",
+  "/images/home/motors/motor1.png",
+  "/images/home/motors/motor2.png",
   "/images/home/motors/motor3.png",
 ];
 
