@@ -65,7 +65,7 @@ export default function About() {
         <div className="relative w-full max-w-[600px] order-1 lg:order-2">
           <div className="relative w-full aspect-[5/4] rounded-2xl overflow-hidden ring-1 ring-black/5">
             <Image
-              src="/images/home/about.jpg"
+              src="/images/home/about.webp"
               alt={t.imgAlt}
               fill
               className="object-cover"

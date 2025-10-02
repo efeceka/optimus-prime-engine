@@ -23,7 +23,7 @@ export default function HakkimizdaHero() {
   return (
     <section className="relative w-full h-[60vh] min-h-[480px] overflow-hidden">
       <Image
-        src="/images/home/hero.jpg"
+        src="/images/home/hero.webp"
         alt="Optimus Prime Hakkımızda"
         fill
         priority

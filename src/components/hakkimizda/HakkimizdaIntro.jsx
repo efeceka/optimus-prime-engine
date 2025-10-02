@@ -40,7 +40,7 @@ export default function HakkimizdaIntro() {
         <div className="md:col-span-5">
           <div className="rounded-xl overflow-hidden shadow-[0_12px_32px_rgba(0,0,0,.12)]">
             <Image
-              src="/images/home/about.jpg"
+              src="/images/home/about.webp"
               alt="Optimus Prime üretim"
               width={600}
               height={400}

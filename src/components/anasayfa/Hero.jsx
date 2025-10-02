@@ -9,7 +9,7 @@ const rajdhani = Rajdhani({
   weight: ["400", "500", "600", "700"],
 });
 
-const HERO_IMG = "/images/home/hero.jpg";
+const HERO_IMG = "/images/home/hero.webp";
 
 export default function Hero() {
   const ctx = useI18n?.();                 // context yoksa da çökmesin
